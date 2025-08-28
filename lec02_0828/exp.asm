@@ -34,18 +34,27 @@ MUL_DONE:
 ; MULTIPLY overwrites the value in R2
 
 POW: 
-
+  ST R0, PowSaveR0
+  ST R1, PowSaveR1
+  ADD R2, R1, #-1
+  ADD R1, R0, #0
     
 POW_LOOP:
     BRz POW_DONE        ; If R2==0, loop complete
     ST R2, PowSaveR2    ; Caller save
+    ST R7, PowSaveR7
     JSR MULTIPLY        ; Result in R2
+    LD R7, PowSaveR7
     ADD R1, R2, #0      ; Copy result for JSR to multiply
     LD R2, PowSaveR2    ; Caller restore
     ADD R2, R2, #-1     ; Decrement counter 
     BR POW_LOOP
     
 POW_DONE:
+  ADD R2, R1, #0
+  LD R0, PowSaveR0
+  LD R1, PowSaveR1
+  RET
 
 N1 .FILL x003
 N2 .FILL x004
@@ -54,5 +63,6 @@ MulSaveR1 .BLKW 1
 PowSaveR0 .BLKW 1
 PowSaveR1 .BLKW 1
 PowSaveR2 .BLKW 1
+PowSaveR7 .BLKW 1
 .END
 
