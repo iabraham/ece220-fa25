@@ -3,7 +3,7 @@
 LD R6, STACK_TOP        ; STACK_TOP points to x4000 at the beginning
 
 ; User Program
-LEA R1 STRSTART         ; Load starting address of string
+LEA R1, STRSTART         ; Load starting address of string
 
 ; Loop to push string onto stack 
 PUSHLOOP: 
