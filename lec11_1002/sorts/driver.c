@@ -1,3 +1,4 @@
+#include "sorts.h"
 #include <stdio.h>
 
 /* Driver code */
@@ -11,7 +12,7 @@ int main(void) {
 
   printf("\n");
 
-  // QuickSortIterative(arr, 0, len - 1);
+  sort(arr, len);
 
   for (i = 0; i < len; i++)
     printf("%d ", arr[i]);
