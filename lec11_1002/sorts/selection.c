@@ -1,13 +1,13 @@
 void sort(int arr[], int n) {
   int min_idx = -1;
-  int min, j;
+  int min, i, j;
 
-  for (int i = 0; i < n - 1; i++) {
+  for (i = 0; i < n - 1; i++) {
 
     min_idx = i; // Initialize min to first item
 
     // Find the minimum in the  sublist: list[i..arraySize-1]
-    for (int j = i + 1; j < n; j++)
+    for (j = i + 1; j < n; j++)
       if (arr[min_idx] > arr[j])
         min_idx = j;
 
