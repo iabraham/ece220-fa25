@@ -15,7 +15,7 @@ int running_sum(int n){
 
 int main(void){
     int n = 4;
-    running_sum(n);
+    int answer = running_sum(n);
 }
 ```
 
@@ -23,7 +23,8 @@ int main(void){
 
 There are a lot of steps involved in using the runtime stack. However, the
 steps are very mechanical and straightforward if you follow the steps
-precisely. Normally the code is created by a compiler.
+precisely. Normally the code is created by a compiler. In the following pseudo-code 
+involving LC3 commands are shown as `COMMANDS` and otherwise as *pseudocode*.
 
  1. caller pushes arguments right to left
  1. caller executes `JSR`
