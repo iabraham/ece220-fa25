@@ -46,7 +46,7 @@ involving LC3 commands are shown as `COMMANDS` and otherwise as *pseudocode*.
 Notice the symmetry of the steps. The actions taken in the beginning to build
 the stack frame are done in the reverse order to remove the stack frame. 
  
- * See steps 7/9, 5/10, 4/11, 1/14. These are symmetric. 
- * Steps 2/12 and 3/13 on the other hand are assymetric.
+ * See steps 7/9, 5/10, 4/11, 1/14. These are symmetric (done by same entity) 
+ * Steps 2/12 and 3/13 on the other hand are assymetric (done by different entities).
 
  Further reading: https://www.cs.colostate.edu/~fsieker/misc/runtimeStack/runtimeStack.html
