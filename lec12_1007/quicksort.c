@@ -7,22 +7,22 @@ void Swap(int *one, int *two) {
 int partition(int arr[], int start, int end) {
 
   int pivotVal = arr[start];
-  int i = start - 1;
-  int j = end + 1;
+  int left = start - 1;
+  int right = end + 1;
 
   while (1) {
     do
-      i++;
-    while (arr[i] < pivotVal);
+      left++;
+    while (arr[left] < pivotVal);
 
     do
-      j--;
-    while (arr[j] > pivotVal);
+      right--;
+    while (arr[right] > pivotVal);
 
-    if (i >= j)
-      return j;
+    if (left >= right)
+      return right;
 
-    Swap(&arr[i], &arr[j]);
+    Swap(&arr[left], &arr[right]);
   }
 }
 
