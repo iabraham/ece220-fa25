@@ -20,7 +20,7 @@ void Swap(int *one, int *two) {
 
 int partition(int arr[], int start, int end) {
 
-  // First lemenet is pivot
+  // First elmenet is pivot
   int pivotVal = arr[start];
 
   // Initialize left, right pointers
