@@ -21,6 +21,12 @@ int ExitMaze(char maze[MAZE_HEIGHT][MAZE_WIDTH], int xpos, int ypos) {
 
   // Explore choices
 
+  // Go Left
+  if (ExitMaze(maze, xpos, ypos - 1)) {
+    maze[xpos][ypos] = 'P';
+    return 1;
+  }
+
   // Go Down
   if (ExitMaze(maze, xpos + 1, ypos)) {
     maze[xpos][ypos] = 'P';
@@ -35,12 +41,6 @@ int ExitMaze(char maze[MAZE_HEIGHT][MAZE_WIDTH], int xpos, int ypos) {
 
   // Go Up
   if (ExitMaze(maze, xpos - 1, ypos)) {
-    maze[xpos][ypos] = 'P';
-    return 1;
-  }
-
-  // Go Left
-  if (ExitMaze(maze, xpos, ypos - 1)) {
     maze[xpos][ypos] = 'P';
     return 1;
   }
@@ -61,10 +61,14 @@ void print_maze(char maze[MAZE_HEIGHT][MAZE_WIDTH]) {
 
 int main() {
   char maze[MAZE_HEIGHT][MAZE_WIDTH] = {
-      // COPY OVER MAZE FROM SLIDES
+      {' ', 'X', ' ', ' ', ' ', ' ', 'X'}, {' ', 'X', ' ', ' ', 'X', ' ', ' '},
+      {' ', ' ', ' ', ' ', 'X', 'X', 'X'}, {' ', 'X', ' ', ' ', ' ', ' ', ' '},
+      {' ', 'X', 'X', 'X', 'X', ' ', ' '}, {'X', ' ', ' ', 'E', 'X', ' ', ' '},
+      {'X', 'X', ' ', 'X', 'X', ' ', 'X'}, {' ', ' ', ' ', ' ', ' ', ' ', 'X'},
   };
+
   print_maze(maze);
-  if (ExitMaze(maze, 1, 7)) {
+  if (ExitMaze(maze, 1, 3)) {
     print_maze(maze);
   } else {
     printf("No path to exit!\n");

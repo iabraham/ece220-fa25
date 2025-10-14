@@ -15,7 +15,17 @@ unsigned long long fib(long long n) {
 
 // Iterative function to find the nth Fibonacci number
 unsigned long long fib_iter(long long n) {
-  // TO IMPLEMENT
+  long long fnow = 0;
+  long long fnext = 1;
+  long long temp;
+  do {
+    n--;
+    temp = fnow + fnext;
+    fnow = fnext;
+    fnext = temp;
+  } while (n > 0);
+
+  return fnext;
 }
 
 int main(void) {

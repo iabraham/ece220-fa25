@@ -4,14 +4,31 @@
 unsigned long long lookup[100];
 
 // Recursive function with lookup table (defined above)
-//
+
 unsigned long long fib_lookup(unsigned long long n) {
-  // TO IMPLEMENT
+  if (lookup[n] != -1)
+    return lookup[n];
+  if (n < 2)
+    lookup[n] = n;
+  else
+    lookup[n] = fib_lookup(n - 1) + fib_lookup(n - 2);
+
+  return lookup[n];
 }
 
 // Iterative function
 unsigned long long fib_iter(long long n) {
-  // COPY OVER IMPLEMENTATION from OTHER FILE
+  long long fnow = 0;
+  long long fnext = 1;
+  long long temp;
+  do {
+    n--;
+    temp = fnow + fnext;
+    fnow = fnext;
+    fnext = temp;
+  } while (n > 0);
+
+  return fnext;
 }
 
 // Standard recursive function
