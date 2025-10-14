@@ -1,12 +1,9 @@
-#include<stdio.h>
-#include<unistd.h>
+#include <stdio.h>
+#include <unistd.h>
 
-int main(){
-  printf("\n");
+int main() {
   putchar('a');
   putchar('\n');
   sleep(5);
   putchar('b');
-  putchar('\n');
-
 }

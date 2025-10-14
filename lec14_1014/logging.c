@@ -1,6 +1,6 @@
-#include<stdio.h>
+#include <stdio.h>
 
-int main(void){
+int main(void) {
   fprintf(stdout, "Normal output1\n");
   fprintf(stdout, "Normal output2\n");
   fprintf(stderr, "Error1 \n");
