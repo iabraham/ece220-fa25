@@ -13,4 +13,15 @@ typedef struct flight {
   geo destination;
 } Flight;
 
-int main(void) { Flight flights[10]; }
+int exists(const char *filename) {
+  /* Return 1 if file exists, else return 0 */
+}
+
+int load_data(char *filemame, Flight *array) {
+  /* Return number of records read or -1 */
+}
+
+int main(void) {
+  /* Read flight data and print it out. */
+  Flight flights[10];
+}

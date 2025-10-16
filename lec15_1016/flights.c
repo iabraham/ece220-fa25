@@ -13,4 +13,12 @@ typedef struct flight {
   geo destination;
 } Flight;
 
+int exists(const char *filename) {
+  /* Return 1 if file exists, else return 0 */
+}
+
+int write_data(char *filename, Flight *array, int numplanes) {
+  /* Write data to disk */
+}
+
 int main(void) {}
