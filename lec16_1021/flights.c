@@ -40,10 +40,20 @@ int make_data(char *filename, Flight *array, int numplanes) {
 /* Function to load data from disk. Arguments are name of file on disk
  * and a pointer to int which will store number of entries read */
 Flight *load_data(char *filename, int *nread) {
-
-  // FILL IN CODE
-  //
-  return NULL;
+  int numplanes = 0;
+  FILE *infile = fopen(filename, "rb");
+  fread(&numplanes, sizeof(int), 1, infile);
+  if (numplanes > 0) {
+    Flight *data = malloc(sizeof(Flight) * numplanes);
+    fread(data, sizeof(Flight), numplanes, infile);
+    fclose(infile);
+    *nread = numplanes;
+    return data;
+  } else {
+    fclose(infile);
+    *nread = -1;
+    return NULL;
+  }
 }
 
 int main(void) {
@@ -59,7 +69,7 @@ int main(void) {
   make_data("flights.dat", flights, 5);
   */
 
-  int numplanes = 0;
+  int numplanes = -1;
 
   Flight *flights = load_data("flights.dat", &numplanes);
   printf("Loaded %d data items!\n", numplanes);
@@ -69,6 +79,7 @@ int main(void) {
            flights[i].origin.lattitude, flights[i].origin.longitude,
            flights[i].destination.lattitude, flights[i].destination.longitude);
   }
+  free(flights);
 
   return 0;
 }

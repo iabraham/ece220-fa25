@@ -44,7 +44,7 @@ int load_data(char *filename, Flight *array) {
 
 int main(void) {
   /* Read flight data and print it out. */
-  Flight flights[10];
+  Flight flights[50];
   int i;
   int numplanes = load_data("airport.bin", flights);
   for (i = 0; i < numplanes; i++) {
