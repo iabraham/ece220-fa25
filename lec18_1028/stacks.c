@@ -1,8 +1,23 @@
 #include "linkedlists.c"
 
-node *pop(node **stacktop) {}
+node *pop(node **headptr) {
+  if (*headptr == NULL)
+    return NULL;
+  else {
+    node *new = (node *)malloc(sizeof(node));
+    new->name = (*headptr)->name;
+    new->byear = (*headptr)->byear;
+    new->next = NULL;
 
-void push(node **cursor, node *new) {}
+    node *old_head = *headptr;
+    *headptr = (*headptr)->next;
+    free(old_head);
+
+    return new;
+  }
+}
+
+void push(node **cursor, node *new) { add_at_head(cursor, new); }
 
 node *stacktop = NULL;
 
@@ -24,4 +39,6 @@ int main(void) {
   printf("We popped %s\n", popped->name);
   printf("--------------\n");
   print_list(stacktop);
+  free(popped);
+  destroy(&stacktop);
 }

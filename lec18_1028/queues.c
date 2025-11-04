@@ -1,8 +1,22 @@
 #include "linkedlists.c"
 
-void enqueue(node **cursor, node *new) {}
+void enqueue(node **cursor, node *new) { add_at_tail(cursor, new); }
 
-node *dequeue(node **headptr) {}
+node *dequeue(node **headptr) {
+  if (*headptr == NULL)
+    return NULL;
+  else {
+    node *new = (node *)malloc(sizeof(node));
+    new->name = (*headptr)->name;
+    new->byear = (*headptr)->byear;
+
+    node *old_head = *headptr;
+    *headptr = (*headptr)->next;
+    free(old_head);
+
+    return new;
+  }
+}
 
 node *front = NULL;
 
@@ -24,4 +38,7 @@ int main(void) {
   printf("We removed %s\n", removed->name);
   printf("--------------\n");
   print_list(front);
+
+  free(removed);
+  destroy(&front);
 }

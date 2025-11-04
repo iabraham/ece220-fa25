@@ -4,20 +4,27 @@ node *middle(node *start, node *last) {
   node *slow, *fast;
   /* List is empty */
   if (start == NULL) {
+    return NULL;
   }
 
   /* Initialize slow and start pointers */
+  slow = start;
+  fast = start->next;
 
   while (fast != last) {
     /* Update fast once */
+    fast = fast->next;
     if (fast != last) {
       /* Update slow once */
+      slow = slow->next;
 
       /* Update fast once more */
+      fast = fast->next;
     }
   }
 
   /* Return slower pointer */
+  return slow;
 }
 
 node *binary_search(node *cursor, unsigned int year) {
@@ -29,15 +36,18 @@ node *binary_search(node *cursor, unsigned int year) {
   do {
     node *mid = middle(start, end);
     if (mid == NULL) {
-
       /* Didn't find item */
+      return NULL;
     }
     if (mid->byear == year) {
       /* Found item */
+      return mid;
     } else if (mid->byear < year) {
       /* Need to go right */
+      start = mid->next;
     } else {
       /* Need to go left */
+      end = mid;
     }
   } while (end == NULL || start != end);
 
@@ -71,5 +81,6 @@ int main(void) {
   print_list(headptr_prez);
 
   node *ww2_baby = binary_search(headptr_prez, 1942);
-  printf("President %s was born during WWII", ww2_baby->name);
+  printf("President %s was born during WWII\n", ww2_baby->name);
+  destroy(&headptr_prez);
 }
