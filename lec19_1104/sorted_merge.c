@@ -9,8 +9,10 @@ node *merge_lists(node *list1, node *list2) {
   if (list1 == NULL) {
     while (list2) {
       /* Add at tail position */
+      add_at_tail(&result, list2);
 
       /*Update list pointer */
+      list2 = list2->next;
     }
     /* Return right away beause rest of it will segfault */
     return result;
@@ -19,10 +21,13 @@ node *merge_lists(node *list1, node *list2) {
   if (list2 == NULL) {
     while (list1) {
       /* Add at tail position */
+      add_at_tail(&result, list1);
 
       /*Update list pointer */
+      list1 = list1->next;
     }
     /* Return right away beause rest of it will segfault */
+    return result;
   }
 
   /* Neither list is empty, must compare and add */
@@ -30,12 +35,15 @@ node *merge_lists(node *list1, node *list2) {
     /* If list1 has smaller element */
     if (list1->byear <= list2->byear) {
       /* Add list1's element to result */
-
+      add_at_tail(&result, list1);
       /* Recursively call merge list */
+      result->next = merge_lists(list1->next, list2);
     } else {
       /* Add list2's element to result */
+      add_at_tail(&result, list2);
 
       /* Recursively call merge list */
+      result->next = merge_lists(list1, list2->next);
     }
     return result;
   } else
@@ -50,8 +58,10 @@ node *rev_list(node *headptr) {
   /* While list exists */
   while (headptr) {
     /* Add list item to result in right place */
+	  add_at_head(&result, headptr);
 
     /* Update headptr */
+	  headptr = headptr->next;
   }
 
   /* Return reversed list */

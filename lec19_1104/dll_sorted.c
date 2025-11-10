@@ -13,8 +13,10 @@ void print_forward(dll_node *cursor) {
   /* While cursor is not NULL */
   while (cursor) {
     /* Print cursor */
+    printf("%s ->", cursor->name);
 
     /* Update cursor */
+    cursor = cursor->next;
   }
   printf("NULL\n");
 }
@@ -25,6 +27,8 @@ void print_reverse(dll_node *cursor) {
   dll_node *tmp = cursor;
 
   /* Find tail element and set it to tmp */
+  while (tmp->next)
+    tmp = tmp->next;
 
   printf("TAIL ->");
 
@@ -43,19 +47,24 @@ void dll_insert(dll_node **head, char *v) {
   dll_node *new_node = malloc(sizeof(dll_node));
 
   /* Copy over string/name */
+  new_node->name = v;
 
   /* Set next and prev to NULL */
+  new_node->next = NULL;
+  new_node->prev = NULL;
 
   /* If list is empty or v is smallest value, then
    * add at head location */
   if (*head == NULL || strcmp((*head)->name, v) > 0) {
-
     /* New guys next should be current head */
-
+    new_node->next = *head;
     /* If head was not null update its prev value */
-
+    if (*head)
+      (*head)->prev = new_node;
     /* Make new node the new head */
+    *head = new_node;
 
+    /* Return immediately cuz we done */
     return;
   }
 
@@ -69,11 +78,16 @@ void dll_insert(dll_node **head, char *v) {
     cursor = cursor->next;
 
   /* Insert the node, updating its prev and next*/
+  new_node->next = cursor->next;
+  new_node->prev = cursor;
 
   /* If not adding at the tail position,
    * rewire succeeding element's prev to new node */
+  if (cursor->next)
+    cursor->next->prev = new_node;
 
   /* Set cursor's next to new node */
+  cursor->next = new_node;
 }
 
 int main(void) {
