@@ -2,6 +2,8 @@
 #include <iostream>
 
 class LinkedList {
+
+protected:
   Person *head;
 
 public:
