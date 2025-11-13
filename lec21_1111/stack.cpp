@@ -62,4 +62,11 @@ int main() {
   }
 
   prez_list.print_list();
+  std::cout << "----------------" << std::endl;
+  Person *pp = prez_list.pop();
+  std::cout << "We popped:" << std::endl;
+  pp->print();
+  std::cout << "----------------" << std::endl;
+  prez_list.print_list();
+  delete pp;
 }
