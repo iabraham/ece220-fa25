@@ -28,6 +28,11 @@ Person::Person(const Person &p) {
 }
 
 /** Add templated myswap code here so that this file compiles **/
+template <typename T> void myswap(T &a, T &b) {
+  T temp = a;
+  a = b;
+  b = temp;
+}
 
 int main() {
 
