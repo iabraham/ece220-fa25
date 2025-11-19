@@ -24,12 +24,17 @@ typedef struct node {
 void add_left(node *cursor, int data) {
   if (cursor->left == NULL) {
     /* Allocate memory for the new node */
+    node *new_node = (node *)malloc(sizeof(node));
 
     /* Set the data for the new node */
+    new_node->data = data;
 
     /* Initialize left and right children to NULL */
+    new_node->left = NULL;
+    new_node->right = NULL;
 
     /* Link the new node as the left child of the cursor */
+    cursor->left = new_node;
   } else {
     /* If left child already exists, do nothing */
     return;
@@ -43,10 +48,14 @@ void add_right(node *cursor, int data) {
     node *new_node = (node *)malloc(sizeof(node));
 
     /* Set the data for the new node */
+    new_node->data = data;
 
     /* Initialize left and right children to NULL */
+    new_node->left = NULL;
+    new_node->right = NULL;
 
     /* Link the new node as the right child of the cursor */
+    cursor->right = new_node;
   } else {
     /* If right child already exists, do nothing */
   }
@@ -55,14 +64,19 @@ void add_right(node *cursor, int data) {
 /* Function for Preorder Traversal */
 void print_preorder(node *cursor) {
   /* Base case: if the current node is NULL, return */
+  if (cursor == NULL) {
+    return;
+  }
 
   /* Visit the root node first */
   printf("Node %d: (Address: %p,\t Left:%p, \t Right:%p)\n", cursor->data,
          (void *)cursor, (void *)cursor->left, (void *)cursor->right);
 
   /* Traverse the left subtree */
+  print_preorder(cursor->left);
 
   /* Traverse the right subtree */
+  print_preorder(cursor->right);
 }
 
 /* Function for Inorder Traversal */
@@ -73,19 +87,28 @@ void print_inorder(node *cursor) {
   }
 
   /* Traverse the left subtree */
+  print_inorder(cursor->left);
 
   /* Visit the root node */
+  printf("Node %d: (Address: %p,\t Left:%p, \t Right:%p)\n", cursor->data,
+         (void *)cursor, (void *)cursor->left, (void *)cursor->right);
 
   /* Traverse the right subtree */
+  print_inorder(cursor->right);
 }
 
 /* Function for Postorder Traversal */
 void print_postorder(node *cursor) {
   /* Base case: if the current node is NULL, return */
+  if (cursor == NULL) {
+    return;
+  }
 
   /* Traverse the left subtree */
+  print_postorder(cursor->left);
 
   /* Traverse the right subtree */
+  print_postorder(cursor->right);
 
   /* Visit the root node */
   printf("Node %d: (Address: %p,\t Left:%p, \t Right:%p)\n", cursor->data,
@@ -95,14 +118,19 @@ void print_postorder(node *cursor) {
 /* Function to delete the entire tree */
 void delete_tree(node *cursor) {
   /* Base case: if the current node is NULL, return */
+  if (cursor == NULL)
+    return;
 
   /* Recursively delete left and right subtrees */
+  delete_tree(cursor->left);
+  delete_tree(cursor->right);
 
   printf("Deleting Node %d: (Address: %p,\t Left:%p, \t Right:%p)\n",
          cursor->data, (void *)cursor, (void *)cursor->left,
          (void *)cursor->right);
 
   /* Free the memory allocated for the current node */
+  free(cursor);
 }
 
 /* Function to print the tree in a human-readable format */
@@ -117,8 +145,11 @@ void treeprint(node *cursor, int depth) {
     printf(i == depth - 1 ? "|-" : "  ");
 
   /* Print the data of the current node */
+  printf("%d\n", cursor->data);
 
   /* Recursively print the left and right subtrees */
+  treeprint(cursor->left, depth + 1);
+  treeprint(cursor->right, depth + 1);
 }
 
 int main(void) {
@@ -137,10 +168,10 @@ int main(void) {
   }
   printf("==================PREORDER=====================\n");
   print_preorder(root);
-  printf("===================INORDER===================\n");
-  print_inorder(root);
-  printf("=================POSTORDER======================\n");
-  print_postorder(root);
+  // printf("===================INORDER===================\n");
+  // print_inorder(root);
+  // printf("=================POSTORDER======================\n");
+  // print_postorder(root);
   printf("==================HUMAN READABLE===============\n");
   treeprint(root, 0);
   delete_tree(root);
