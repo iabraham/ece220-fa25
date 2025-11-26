@@ -13,23 +13,29 @@ RSTACK .FILL x7000
 
 TRAVERSE_INORDER ;; FILL IN ALL THE NECESSARY CODE!!
 ; Bookkeeping
-
-
+ADD R6, R6, #-1 ; Return value
+ADD R6, R6, #-1
+STR R7, R6, #0  ; Return address
+ADD R6, R6, #-1 
+STR R5, R6, R0  ; Old CFP
+ADD R5, R6, #-1 ; Set new CFP
 
 ;; FUNCTION LOGIC 
-
 ; if node null skip to "end"
-
+ADD R0, R5, #4
+BRz DONE
 
 ; traverse left subtree - recursive
-
-
-
+LDR R1, R0, #1
+ADD R6, R6, #-1
+STR R1, R6, #0
+JSR TRAVERSE_INORDER
+ADD R6, R6, #2
 
 ; output character 
-
-
-
+LDR R0, R5, #4;
+LDR R0, R0, #0; 
+OUT
 
 ; traverse right subtree - recursive 
 
@@ -40,7 +46,7 @@ DONE ; This is the "end"
 
 RET
 .END
-
+i
 .ORIG x6000
 .FILL 50        ;x6000 - 2
 .FILL x6003     ;x6001

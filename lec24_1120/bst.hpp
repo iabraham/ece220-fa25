@@ -15,6 +15,8 @@ template <typename T> struct treenode {
     this->data = T(data);
 
     // Initialize children to nullptr
+    this->left = nullptr;
+    this->right = nullptr;
   }
 };
 
@@ -35,14 +37,15 @@ private:
   void insert(N data, node **cursor) {
     if (*cursor == nullptr) {
       // Constructor is called!
-      //
+      *cursor = new node(data);
     } else {
       // Recursive cases
       if (data < (*cursor)->data)
         // Insert in left subtree
-
-        else
-      // Insert in right subtree
+        insert(data, &((*cursor)->left));
+      else
+        // Insert in right subtree
+        insert(data, &((*cursor)->right));
     }
   }
 
@@ -53,12 +56,13 @@ private:
       return nullptr;
     else if (key == cursor->data)
       // Item found
-
-      else if (key < cursor->data)
-          // Search left subtree
-
-          else
-    // Search right subtree
+      return cursor;
+    else if (key < cursor->data)
+      // Search left subtree
+      return search(key, cursor->left);
+    else
+      // Search right subtree
+      return search(key, cursor->right);
   }
 
   // Inorder traversal
@@ -68,11 +72,13 @@ private:
     // Recursive cases
 
     // Visit left subtree
+    inorder(cursor->left);
 
     // Visit node
     cout << "(Node: " << cursor << ", Left: " << cursor->left
          << ", Right: " << cursor->right << ", " << cursor->data << ")" << endl;
     // Visit right subtree
+    inorder(cursor->right);
   }
 
   // Counts number of nodes in tree
@@ -80,7 +86,8 @@ private:
     if (cursor == nullptr)
       return 0;
     else
-    // Count this node + nodes in left subtree + nodes in right subtree
+      // Count this node + nodes in left subtree + nodes in right subtree
+      return 1 + countnodes(cursor->left) + countnodes(cursor->right);
   }
 
   // Prints tree structure in human readable form
@@ -99,17 +106,18 @@ private:
     int lh, rh;
     if (cursor == nullptr)
       // Height of empty tree is -1
+      return -1;
+    else {
+      // Height is max height of left/right subtree + 1
+      // Calculate left height
+      lh = height(cursor->left) + 1;
 
-      else {
-        // Height is max height of left/right subtree + 1
+      // Calculate right height
+      rh = height(cursor->right) + 1;
 
-        // Calculate left height
-
-        // Calculate right height
-
-        // Return max of left/right heights
-        return (lh > rh) ? lh : rh;
-      }
+      // Return max of left/right heights
+      return (lh > rh) ? lh : rh;
+    }
   }
 
   // Deletes the tree recursively
@@ -119,10 +127,13 @@ private:
 
     // Recursive cases
     // Delete left subtree
+    delete_tree(cursor->left);
 
     // Delete right subtree
+    delete_tree(cursor->right);
 
     // Delete this node
+    delete cursor;
   }
 
   // Vectorizes the tree in inorder fashion
@@ -135,6 +146,7 @@ private:
     // Vectorize left subtree
     vectorize(cursor->left, v);
     // Visit this node (use pushback to add to vector)
+    v.push_back(cursor->data);
 
     // Vectorize right subtree
     vectorize(cursor->right, v);
